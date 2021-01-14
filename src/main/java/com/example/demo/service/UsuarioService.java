@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dao.DAO;
 import com.example.demo.dao.UsuarioDAO;
 import com.example.demo.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +22,20 @@ public class UsuarioService {
     }
 
     public int addUsuario(Usuario user){
-        return userdao.insertUsuario(user);
+        return userdao.insert(user);
     }
     public List<Usuario> getAllUsuarios(){
-        return userdao.selectAllUsuarios();
+        return userdao.selectAll();
     }
     public Optional<Usuario> getUsurio(UUID id){
-        return userdao.selectUsuarioID(id);
+        return userdao.selectID(id);
     }
 
     public int deleteUsuario(UUID id){
-        return userdao.deleteUsuario(id);
+        return userdao.deleteID(id);
     }
     public int updateUsuario(UUID id, Usuario usuario){
-        return userdao.updateUsuario(id, usuario);
+        return userdao.updateID(id, usuario);
     }
 
 
