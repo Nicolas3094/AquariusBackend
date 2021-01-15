@@ -7,6 +7,7 @@ import com.example.demo.model.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,6 @@ public class ProductoService {
     public ProductoService(@Qualifier("producto") ProductoDAO productoDAO) {
         this.productoDAO = productoDAO;
     }
-
     public int add(Producto producto){
         return productoDAO.insert(producto);
     }

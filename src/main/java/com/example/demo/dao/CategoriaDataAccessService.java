@@ -1,7 +1,6 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Categoria;
-import com.example.demo.model.Marca;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +12,6 @@ import java.util.Optional;
 public class CategoriaDataAccessService implements CategoriaDAO{
 
     private final JdbcTemplate jdbctemplate;
-    private final String tablename = "categoria";
 
     @Autowired
     public CategoriaDataAccessService(JdbcTemplate jdbctemplate){

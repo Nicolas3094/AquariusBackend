@@ -23,10 +23,6 @@ CREATE TABLE usuarioRol (
     PRIMARY KEY(usuarioID, tipoID)
 );
 
-CREATE TABLE categoria (
-    nombre VARCHAR(255) NOT NULL,
-    PRIMARY KEY(nombre)
-);
 
 CREATE TABLE marca (
     nombre VARCHAR(255) NOT NULL,
@@ -36,20 +32,24 @@ CREATE TABLE marca (
 CREATE TABLE producto (
     id UUID NOT NULL,
     nombre VARCHAR(255) NOT NULL UNIQUE,
-    cantidad INTEGER NOT NULL,
+    cantidad INTEGER ,
     n_marca VARCHAR(255) NOT NULL,
-    imagen  VARCHAR(1500),
-    descripcion  VARCHAR(1500),
+    imagen  VARCHAR,
+    descripcion  VARCHAR,
     fecha DATE DEFAULT CURRENT_DATE,
-    FOREIGN KEY(n_marca) REFERENCES marca (nombre) ON DELETE SET NULL,
+
+    FOREIGN KEY(n_marca) REFERENCES marca (nombre) ON DELETE SET NULL ,
     PRIMARY KEY(id)
 );
-
+CREATE TABLE categoria (
+    nombre VARCHAR(255) NOT NULL,
+    PRIMARY KEY(nombre)
+);
 CREATE TABLE productoCategoria (
     prodctoID UUID NOT NULL,
     categoriaID VARCHAR(255) NOT NULL,
     FOREIGN KEY(prodctoID) REFERENCES producto (id) ON DELETE CASCADE,
-    FOREIGN KEY(categoriaID) REFERENCES categoria (nombre) ON DELETE SET NULL,
+    FOREIGN KEY(categoriaID) REFERENCES categoria (nombre) ON DELETE CASCADE,
     PRIMARY KEY(prodctoID, categoriaID)
 );
 CREATE TABLE precios (
@@ -65,7 +65,7 @@ CREATE TABLE precios (
      precioID INT NOT NULL,
      precio DECIMAL(9,2) NOT NULL DEFAULT 0,
      FOREIGN KEY(productoID) REFERENCES producto (id) ON DELETE CASCADE,
-     FOREIGN KEY(precioID) REFERENCES precios (id) ON DELETE SET NULL,
+     FOREIGN KEY(precioID) REFERENCES precios (id) ,
      PRIMARY KEY(productoID, precioID)
  );
 

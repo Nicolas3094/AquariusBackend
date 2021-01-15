@@ -1,9 +1,7 @@
 package com.example.demo.api;
 
 import com.example.demo.model.Marca;
-import com.example.demo.model.Usuario;
 import com.example.demo.service.MarcaService;
-import com.example.demo.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.UUID;
 
 @RequestMapping("api/v1/marcas")
 @RestController
@@ -30,6 +27,7 @@ public class MarcaController {
         marcaService.add(usuario);
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping
     public List<Marca> getAllUsuarios(){
         return marcaService.getAll();

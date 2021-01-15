@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.CategoriaDAO;
 import com.example.demo.dao.MarcaDAO;
-import com.example.demo.model.Categoria;
 import com.example.demo.model.Marca;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
