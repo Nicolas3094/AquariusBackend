@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+
 import java.util.UUID;
 
 @RequestMapping("api/v1/usuarios")
@@ -28,8 +28,8 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> getAllUsuarios(){
-        return userService.getAllUsuarios();
+    public String getAllUsuarios(){
+        return "<h1>hola mundo</h1>";
     }
 
     @GetMapping(path = "{id}")
