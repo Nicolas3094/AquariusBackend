@@ -14,37 +14,14 @@ import java.util.UUID;
 
 @RequestMapping("api/v1/productos")
 @RestController
-public class ProductoController {
+public class ProductoController extends AbsController<Producto, UUID>{
     private  final ProductoService productoService;
 
     @Autowired
-    public ProductoController(ProductoService productoService) {
+    public ProductoController(ProductoService productoService)
+    {
+        super(productoService);
         this.productoService = productoService;
-    }
-
-    @PostMapping
-    public void addUsuario(@Valid @NotNull @RequestBody Producto usuario){
-        productoService.add(usuario);
-    }
-
-    @GetMapping
-    public List<Producto> getAllUsuarios(){
-        return productoService.getAll();
-    }
-
-    @GetMapping(path = "{id}")
-    public Producto getUsuarios(@PathVariable("id") UUID id){
-        return productoService.getID(id)
-                .orElse(null);
-    }
-
-    @DeleteMapping(path = "{id}")
-    public ResponseEntity<Producto> deleteUsuarioId(@PathVariable("id") UUID id){
-        final int response = productoService.delete(id);
-        if(response==0){
-            return new ResponseEntity<Producto>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        return new ResponseEntity<Producto>(HttpStatus.ACCEPTED);
     }
 
     @PutMapping(path = "{id}")

@@ -2,80 +2,96 @@ package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotBlank;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity
+@Table(name="USUARIO")
 public class Usuario {
 
-    private final UUID id;
+    @Id
+    @Column(
+            updatable = false
+    )
+    private UUID id;
 
-    @NotBlank
-    private final String nombre;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private  String nombre;
 
-    @NotBlank
-    private final String apellido;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private  String apellido;
 
-    @NotBlank
-    private final String userName;
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT",
+            unique = true
+    )
+    private  String displayName;
 
-    private final String imagen;
+    private  String imagen;
 
-    @NotBlank
-    private final String contraseña;
+    @Column(nullable = false)
+    private  String contraseña;
 
-    private final short verificado;
+    @Column( nullable = false)
+    private  short verificado;
 
-    private final String rol;
+    @Column( nullable = false)
+    private  String rol;
+
+    public Usuario(){}
 
     public Usuario(
-            @JsonProperty("id") UUID id,
-            @JsonProperty("nombre") String nombre,
-            @JsonProperty("apellido") String apellido,
-            @JsonProperty("username") String userName,
-            @JsonProperty("imagen") String imagen,
-            @JsonProperty("contraseña") String contraseña,
+             UUID id,
+            String nombre,
+            String apellido,
+            String displayName,
+             String imagen,
+           String contraseña,
             short verificado,
             String rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.userName = userName;
+        this.displayName = displayName;
         this.imagen = imagen;
         this.contraseña = contraseña;
         this.verificado = verificado;
         this.rol = rol;
     }
 
+    public void setId(UUID id){
+        this.id = this.id==null? id : throw_();
+    }
     public UUID getId() {
         return id;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public String getApellido() {
         return apellido;
     }
-
     public String getUserName() {
-        return userName;
+        return displayName;
     }
-
     public String getImagen() {
         return imagen;
     }
-
     public String getContraseña() {
         return contraseña;
     }
-
     public short isVerificado() {
         return verificado;
     }
-
-
     public String getRol() {
         return rol;
     }
+    public UUID throw_() {
+        throw new RuntimeException("id is already set");
+    }
+
 }

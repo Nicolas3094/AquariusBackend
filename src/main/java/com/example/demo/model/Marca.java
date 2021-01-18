@@ -1,17 +1,30 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name="MARCA")
 public class Marca {
-    @NotBlank
-    private final String nombre;
 
-    public Marca(@JsonProperty("nombre")String nombre){
+    @Id
+    @Column(
+            name="id_marca",
+            updatable = false
+    )
+    private String nombre;
+
+    @OneToMany(mappedBy = "marca")
+    private List<Producto> productos;
+
+    public  Marca(){}
+    public Marca(String nombre){
         this.nombre = nombre;
     }
-
+    public void setNombre(String nombre){
+        this.nombre=nombre;
+    }
     public String getNombre() {
         return nombre;
     }

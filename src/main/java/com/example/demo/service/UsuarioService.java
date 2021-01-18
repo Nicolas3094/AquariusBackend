@@ -1,42 +1,48 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.UsuarioDAO;
+import com.example.demo.dao.usuario.UsuarioDAO;
 import com.example.demo.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class UsuarioService {
+public class UsuarioService extends AbsService<Usuario, UUID>{
 
     private final UsuarioDAO userdao;
 
     @Autowired
-    public UsuarioService(@Qualifier("postgres") UsuarioDAO userdao) {
+    public UsuarioService(UsuarioDAO userdao) {
+        super(userdao);
         this.userdao = userdao;
     }
 
-    public int addUsuario(Usuario user){
-        return userdao.insert(user);
-    }
-    public List<Usuario> getAllUsuarios(){
-        return userdao.selectAll();
-    }
-    public Optional<Usuario> getUsurio(UUID id){
-        return userdao.selectID(id);
+    public void updateUsuario(UUID id, Usuario usuario){
+        if(userdao.existsById(id)){
+            userdao.save(new Usuario(
+                    id,
+                    usuario.getNombre(),
+                    usuario.getApellido(),
+                    usuario.getUserName(),
+                    usuario.getImagen(),
+                    usuario.getContraseña(),
+                    (short) 0,
+                    "User"
+                    ));
+        }else {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,"No existe objeto.");
+        }
+
     }
 
-    public int deleteUsuario(UUID id){
-        return userdao.deleteID(id);
+
+    @Override
+    protected UUID createID(Usuario obj) {
+        final UUID id = UUID.randomUUID();
+        obj.setId(id);
+        return id;
     }
-    public int updateUsuario(UUID id, Usuario usuario){
-        return userdao.updateID(id, usuario);
-    }
-
-
-
 }

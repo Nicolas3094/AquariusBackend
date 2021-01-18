@@ -1,16 +1,10 @@
 package com.example.demo.dao;
 
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 
-public interface DAO<T, K >{
-    int insert( T obj);
 
-    List<T> selectAll();
+@NoRepositoryBean
+public interface DAO<T, K > extends JpaRepository<T,K> {
 
-    Optional<T> selectID(K id);
-
-    int deleteID(K id);
-
-    int updateID(K id, T obj);
 }

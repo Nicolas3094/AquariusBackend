@@ -1,89 +1,99 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
+
+@Entity(name="producto")
+@Table(name="PRODUCTO")
 public class Producto {
-    private final UUID id;
+
+    @Id
+    @Column(
+            name="prod_id",
+            updatable = false
+    )
+    private UUID id;
 
     @NotNull
-    private final String nombre;
+    private String nombre;
 
     @NotNull
-    private final long cantidad;
+    private long cantidad;
 
-    private final float[] precio;
+    private String descripcion;
 
-    @NotNull
-    private final String descripcion;
+    private String image;
 
-    private final String image;
+    private String fecha;
 
-    private final String fecha;
+    @OneToMany
+    private List<Precio> precios;
 
-    @NotNull
-    private final Marca marca;
+    @ManyToOne
+    private Marca marca;
 
-    @NotNull
-    private final List<Categoria> categorias;
+    @ManyToMany
+    @JoinColumn(name="prod_id")
+    private List<Categoria> categorias;
+
+    public Producto(){
+    }
 
     public Producto(
-            @JsonProperty("id") UUID id,
-            @JsonProperty("nombre") String nombre,
-            @JsonProperty("cantidad") int cantidad,
-            @JsonProperty("precio") float[] precio,
-            @JsonProperty("descripcion") String descripcion,
-            @JsonProperty("imagen") String image,
-            @JsonProperty("fecha") String fecha,
-            @JsonProperty("marca") Marca marca,
-            @JsonProperty("categorias") List<Categoria> categorias) {
+           UUID id,
+           String nombre,
+           int cantidad,
+           String descripcion,
+           String image,
+            String fecha
+
+           ) {
         this.id = id;
         this.nombre = nombre;
         this.cantidad = cantidad;
-        this.precio = precio;
         this.descripcion = descripcion;
         this.image = image;
         this.fecha = fecha;
-        this.marca = marca;
-        this.categorias = categorias;
     }
 
+
+
+    public  List<Categoria> getCategorias(){
+        return categorias;
+    }
+    public Marca getMarca(){
+        return this.marca;
+    }
+    public void setId(UUID id){
+         this.id= this.id==null?id : throw_();
+    }
     public UUID getId() {
         return id;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public long getCantidad() {
         return cantidad;
     }
-
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
-
-    public Marca getMarca() {
-        return marca;
-    }
-
     public String getImage() {
         return image;
     }
-
     public String getDescripcion() {
         return descripcion;
     }
-
-    public float[] getPrecio() {
-        return precio;
-    }
-
     public String getFecha() {
         return fecha;
+    }
+    public UUID throw_() {
+        throw new RuntimeException("id is already set");
+    }
+
+
+    public  List<Precio> getPrecios(){
+        return precios;
     }
 }

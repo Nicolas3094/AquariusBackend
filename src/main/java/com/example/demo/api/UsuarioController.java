@@ -3,49 +3,24 @@ package com.example.demo.api;
 import com.example.demo.model.Usuario;
 import com.example.demo.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("api/v1/usuarios")
 @RestController
-public class UsuarioController {
+public class UsuarioController extends AbsController<Usuario, UUID>{
     private  final UsuarioService userService;
 
     @Autowired
     public UsuarioController(UsuarioService userService) {
+
+        super(userService);
         this.userService = userService;
-    }
-
-    @PostMapping
-    public void addUsuario(@Valid @NotNull @RequestBody Usuario usuario){
-        userService.addUsuario(usuario);
-    }
-
-    @GetMapping
-    public List<Usuario> getAllUsuarios(){
-        return userService.getAllUsuarios();
-    }
-
-    @GetMapping(path = "{id}")
-    public Usuario getUsuarios(@PathVariable("id") UUID id){
-        return userService.getUsurio(id)
-                .orElse(null);
-    }
-
-    @DeleteMapping(path = "{id}")
-    public ResponseEntity<Usuario> deleteUsuarioId(@PathVariable("id") UUID id){
-        final int response = userService.deleteUsuario(id);
-        if(response==0){
-            return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<Usuario>(HttpStatus.ACCEPTED);
     }
 
     @PutMapping(path = "{id}")
