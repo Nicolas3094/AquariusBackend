@@ -1,0 +1,59 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>10</x><y>260</y><w>210</w><h>180</h></coordinates><panel_attributes>USUARIO
+--
+_- id : UUID_
+_- rol: Rol_
+- displayName : String
+- contraseña : Encrypted
+- nombre: String
+- apellido_paterno : String
+- apellido_materno : String
+- imagen : String | null
+- verificado : boolean
+- fecha_ingreso : Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>30</y><w>210</w><h>140</h></coordinates><panel_attributes>PRODUCTO
+--
+_- id : UUID_
+- nombre_producto: String
+- cantidad : Long
+- imagen : String
+- fecha_ingreso : Date
+_- marca : Marca_
+_- categorias : Categoria[ ]_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>680</x><y>40</y><w>210</w><h>90</h></coordinates><panel_attributes>MARCA
+--
+_- id : UUID_
+- nombre_marca: String
+- fecha_ingreso : Date
+_- productos : Producto[ ]_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>180</y><w>210</w><h>80</h></coordinates><panel_attributes>CATEGORIA
+--
+_- id : UUID_
+- nombre_categoria: String
+_- productos : Producto[ ]_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>380</x><y>350</y><w>210</w><h>80</h></coordinates><panel_attributes>ROL
+--
+_- id : UUID_
+- nombre_rol: String
+_- usuarios: Usuario[ ]_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>300</y><w>190</w><h>100</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1..1
+Es un &gt;</panel_attributes><additional_attributes>10;10;170;80</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>110</y><w>140</w><h>70</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1..1
+tiene &gt;</panel_attributes><additional_attributes>10;50;120;10</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>150</y><w>170</w><h>120</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1..m
+tiene &gt;</panel_attributes><additional_attributes>10;10;150;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>40</x><y>50</y><w>210</w><h>120</h></coordinates><panel_attributes>ORDEN
+--
+_- id : UUID_
+_- id_producto : UUID_
+- producto_cantidad : Long
+_- id_usuario : UUID_
+- fecha_ingreso : Date
+- Status : Estado</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>80</y><w>140</w><h>110</h></coordinates><panel_attributes>lt=-
+m1=1..m
+m2=1..n
+tiene &gt;</panel_attributes><additional_attributes>10;10;120;90</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>100</y><w>150</w><h>220</h></coordinates><panel_attributes>lt=-
+m1=1..1
+m2=1..1
+ordena producto &gt;</panel_attributes><additional_attributes>10;200;40;10</additional_attributes></element></diagram>

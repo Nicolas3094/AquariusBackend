@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 public class Precio {
+
     private final int id;
 
     private final TIPO_PRECIO tipo;
@@ -14,7 +15,7 @@ public class Precio {
         return id;
     }
 
-    public TIPO_PRECIO getTipo() {
-        return tipo;
+    public String getTipo() {
+        return tipo.toString();
     }
 }

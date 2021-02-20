@@ -42,6 +42,31 @@ Archivo de Dockerfile
     volumes:
       pgdata:
 
+## Vistas
+
+    CREATE VIEW pedidosview as
+    SELECT
+        B.pedido as "pedido",
+        V.producto as "producto",
+        V.cliente as "cliente",
+        B.fecha as "fecha de pedido",
+        B.status as "satus"
+    FROM
+    (SELECT
+        D.productoID as "producto",
+        U.clienteID as "cliente"
+    FROM productopedidos D
+    JOIN UsuarioPedido U
+    ON D.pedidoID = U.pedidoID) V
+    JOIN
+        (SELECT
+            Pd.pedidoid as "pedido",
+            Pd.productoid as "producto",
+            O.fecha_pedido as "fecha",
+            O.status_pedido as "status"
+        from productopedidos Pd JOIN pedidos O
+        on Pd.pedidoID = O.numeroPedido) B
+        on V.producto = B.producto;
 ### Nota
 
 Aún me reúso a utilizarla paquetería de Spring Data JPA por razones que deja casi aun lado el lenguaje SQL.
